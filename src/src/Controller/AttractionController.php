@@ -40,9 +40,7 @@ class AttractionController extends AbstractController
             $attraction->setShortDescription($shortDescription);
             $attraction->setFullDescription($fullDescription);
             $attraction->setScore($score);
-            $attraction->setCreatedAt(new DateTimeImmutable());
-            $attraction->setUpdatedAt(new DateTimeImmutable());
-
+            
             $attractionRepository->add($attraction);
         }
 
@@ -64,8 +62,7 @@ class AttractionController extends AbstractController
             $attraction->setShortDescription($shortDescription);
             $attraction->setFullDescription($fullDescription);
             $attraction->setScore($score);
-            $attraction->setUpdatedAt(new DateTimeImmutable());
-
+            
             $entityManager->flush();
         }
 

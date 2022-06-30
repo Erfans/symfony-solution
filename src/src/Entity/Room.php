@@ -5,10 +5,17 @@ namespace App\Entity;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Model\TimeLoggerInterface;
+use App\Model\UserLoggerInterface;
+use App\Model\TimeLoggerTrait;
+use App\Model\UserLoggerTrait;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
-class Room
+class Room implements TimeLoggerInterface, UserLoggerInterface
 {
+    use TimeLoggerTrait;
+    use UserLoggerTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
