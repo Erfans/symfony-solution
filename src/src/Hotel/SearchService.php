@@ -5,16 +5,18 @@ namespace App\Hotel;
 use App\Entity\Hotel;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 
-class SearchService {
+class SearchService
+{
 
     /**
      * @var \Doctrine\ORM\EntityManagerInterface
      */
-    private EntityManagerInterface $entityManager;
+    private ?EntityManagerInterface $entityManager;
 
     public function __construct(
-        EntityManagerInterface $entityManager
+        ?EntityManagerInterface $entityManager
     ) {
 
         $this->entityManager = $entityManager;
@@ -25,10 +27,22 @@ class SearchService {
      *
      * @return Hotel[]
      */
-    public function search($hotelNameQuery): array {
+    public function search($hotelNameQuery): array
+    {
 
         /** @var \App\Repository\HotelRepository $hotelRepository */
         $hotelRepository = $this->entityManager->getRepository(Hotel::class);
         return $hotelRepository->searchByName($hotelNameQuery);
+    }
+
+
+    public function makeSearchParameter(?string $parameter): string
+    {
+
+        if($parameter === null){
+            throw new InvalidArgumentException("Parameter cannot be null");
+        }
+
+        return "%$parameter%";
     }
 }
